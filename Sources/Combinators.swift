@@ -191,5 +191,3 @@ public func sequence<Token, Result>(parsers: Parser<Token, Result>...) -> Parser
     return { try recurse(fixedPoint(recurse))($0) }
 }
 
-
-

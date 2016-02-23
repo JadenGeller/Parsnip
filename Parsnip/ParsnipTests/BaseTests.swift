@@ -51,17 +51,4 @@ class BaseTests: XCTestCase {
             XCTFail()
         }
     }
-    
-    func testTerminating() {
-        do {
-            _ = try terminating(sequence(token(0), token(1))).parse(0...1)
-        } catch {
-            XCTFail()
-        }
-        do {
-            _ = try terminating(sequence(token(0), token(1))).parse(0...2)
-            XCTFail()
-        } catch {
-        }
-    }
 }
