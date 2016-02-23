@@ -68,3 +68,33 @@
     return satisfy{ $0 == token }.expect(String(token))
 }
 
+/**
+    Constructs a `Parser` that consumes a single token and returns the token
+    if it is within the interval `interval`.
+ 
+    - Parameter interval: The interval that the input is tested against.
+ */
+@warn_unused_result public func within<I: IntervalType>(interval: I) -> Parser<I.Bound, I.Bound> {
+    return satisfy(interval.contains).expect("within(\(interval))")
+}
+
+/**
+    Constructs a `Parser` that consumes a single token and returns the token
+    if it is within the sequence `sequence`.
+ 
+    - Parameter sequence: The sequence that the input is tested against.
+ */
+@warn_unused_result public func contains<S: SequenceType where S.Generator.Element: Equatable>(sequence: S) -> Parser<S.Generator.Element, S.Generator.Element> {
+    return satisfy(sequence.contains).expect("contains(\(sequence))")
+}
+
+/**
+    Constructs a `Parser` that consumes a single token and returns the token
+    if it is within the list `tokens`.
+ 
+    - Parameter tokens: The list that the input is tested against.
+*/
+@warn_unused_result public func contains<Token: Equatable>(tokens: Token...) -> Parser<Token, Token> {
+    return contains(tokens)
+}
+

@@ -32,17 +32,17 @@ class BaseTests: XCTestCase {
         XCTAssertEqual(nil, try? parser.parse([1]))
     }
     
-//    func testWithinInterval() {
-//        let parser = within(2...4)
-//        XCTAssertEqual(3, try? parser.parse([3]))
-//        XCTAssertEqual(nil, try? parser.parse([5]))
-//    }
-//    
-//    func testWithinSequence() {
-//        let parser = oneOf([1, 2, 3, 5, 8])
-//        XCTAssertEqual(5, try? parser.parse([5]))
-//        XCTAssertEqual(nil, try? parser.parse([6]))
-//    }
+    func testWithinInterval() {
+        let parser = within(2...4)
+        XCTAssertEqual(3, try? parser.parse([3]))
+        XCTAssertEqual(nil, try? parser.parse([5]))
+    }
+    
+    func testContainsSequence() {
+        let parser = contains([1, 2, 3, 5, 8])
+        XCTAssertEqual(5, try? parser.parse([5]))
+        XCTAssertEqual(nil, try? parser.parse([6]))
+    }
     
     func testEnd() {
         do {
