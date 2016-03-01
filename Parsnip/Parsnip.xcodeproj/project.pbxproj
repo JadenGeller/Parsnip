@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D1EC60A1C861BDA0080ABF0 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1EC6091C861BDA0080ABF0 /* Text.swift */; };
 		4D235D9D1C85C6E000B6465D /* CriticalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D235D9C1C85C6E000B6465D /* CriticalError.swift */; };
 		4D235D9F1C85C9BE00B6465D /* ParseExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D235D9E1C85C9BE00B6465D /* ParseExpectation.swift */; };
 		4D3C74681C85FB900026C659 /* ParseMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3C74671C85FB900026C659 /* ParseMessage.swift */; };
@@ -21,7 +22,6 @@
 		4D847E901C7CD85F00AA9714 /* Recursive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D847E8D1C7CD85F00AA9714 /* Recursive.swift */; };
 		4D847E911C7CD85F00AA9714 /* Repeating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D847E8E1C7CD85F00AA9714 /* Repeating.swift */; };
 		4D847E921C7CD85F00AA9714 /* Sequencing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D847E8F1C7CD85F00AA9714 /* Sequencing.swift */; };
-		4D847E951C7CDB5E00AA9714 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D847E941C7CDB5E00AA9714 /* Text.swift */; };
 		4D847E971C7CDDD000AA9714 /* Separating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D847E961C7CDDD000AA9714 /* Separating.swift */; };
 		4D847E991C7CDED300AA9714 /* SchemeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D847E981C7CDED300AA9714 /* SchemeTest.swift */; };
 		4DAEC67F1C7C570A00694F46 /* Parsnip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DAEC6741C7C570A00694F46 /* Parsnip.framework */; };
@@ -58,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D1EC6091C861BDA0080ABF0 /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		4D235D9C1C85C6E000B6465D /* CriticalError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CriticalError.swift; path = ../../Sources/CriticalError.swift; sourceTree = "<group>"; };
 		4D235D9E1C85C9BE00B6465D /* ParseExpectation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseExpectation.swift; path = ../../Sources/ParseExpectation.swift; sourceTree = "<group>"; };
 		4D3C74671C85FB900026C659 /* ParseMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseMessage.swift; path = ../../Sources/ParseMessage.swift; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		4D847E8D1C7CD85F00AA9714 /* Recursive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Recursive.swift; path = ../../Sources/Recursive.swift; sourceTree = "<group>"; };
 		4D847E8E1C7CD85F00AA9714 /* Repeating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Repeating.swift; path = ../../Sources/Repeating.swift; sourceTree = "<group>"; };
 		4D847E8F1C7CD85F00AA9714 /* Sequencing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sequencing.swift; path = ../../Sources/Sequencing.swift; sourceTree = "<group>"; };
-		4D847E941C7CDB5E00AA9714 /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Text.swift; path = ../../../Parsley/Sources/Text.swift; sourceTree = "<group>"; };
 		4D847E961C7CDDD000AA9714 /* Separating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Separating.swift; path = ../../Sources/Separating.swift; sourceTree = "<group>"; };
 		4D847E981C7CDED300AA9714 /* SchemeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemeTest.swift; sourceTree = "<group>"; };
 		4DAEC6741C7C570A00694F46 /* Parsnip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Parsnip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				4D847E751C7C68D400AA9714 /* Base.swift */,
-				4D847E941C7CDB5E00AA9714 /* Text.swift */,
+				4D1EC6091C861BDA0080ABF0 /* Text.swift */,
 				4D847E931C7CDB4400AA9714 /* Combinators */,
 			);
 			name = "Free Functions";
@@ -361,11 +361,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D847E761C7C68D400AA9714 /* Base.swift in Sources */,
-				4D847E951C7CDB5E00AA9714 /* Text.swift in Sources */,
 				4DAEC69C1C7C57A800694F46 /* ResultTransform.swift in Sources */,
 				4D847E831C7C876500AA9714 /* ErrorThrowing.swift in Sources */,
 				4D847E921C7CD85F00AA9714 /* Sequencing.swift in Sources */,
 				4D847E8C1C7CD85200AA9714 /* Coalescing.swift in Sources */,
+				4D1EC60A1C861BDA0080ABF0 /* Text.swift in Sources */,
 				4D847E7B1C7C6B7900AA9714 /* General.swift in Sources */,
 				4DAEC6A21C7C58D200694F46 /* StreamState.swift in Sources */,
 				4D847E901C7CD85F00AA9714 /* Recursive.swift in Sources */,
