@@ -6,49 +6,52 @@
 //  Copyright © 2016 Jaden Geller. All rights reserved.
 //
 
-/// An explanation as to why the parsing failed.
-public enum ParseError: ErrorType {
-    /// There is no input left to consume.
-    case EndOfStream
+public struct ParseError<Token>: ErrorType {
+    public let index: Int
+    public let actual: Token?
+    public let reason: ParseMessage<Token>
     
-    /// The input parsed did not fulfill a requirement. 
-    case Failure(String)
-    
-    /// The parser failed to match the token with what was expected.
-    case UnableToMatch(expected: String, actual: String)
-}
-
-/// A critical error that cannot be recovered from.
-public struct Critical<Error: ErrorType>: ErrorType {
-    /// The error.
-    public let error: Error
-    
-    public init(_ error: Error) {
-        self.error = error
+    internal init(index: Int, actual: Token?, reason: ParseMessage<Token>) {
+        self.index = index
+        self.actual = actual
+        self.reason = reason
     }
 }
 
-// MARK: Error Transformation
+extension ParseError {
+    public init(combine errors: [ParseError]) {
+        precondition(!errors.isEmpty)
+        let maxElement = errors.maxElement { $0.index < $1.index }!
+        let longestErrors = errors.filter { $0.index == maxElement.index }
+        
+        self = ParseError(index: maxElement.index, actual: maxElement.actual, reason: ParseMessage(combine: longestErrors.map{ $0.reason }))
+    }
+}
 
-extension Parser {
-    /**
-        Constructs a `Parser` that, on `UnableToMatch` failure, will map the expected value using `transform`.
-     
-        - Parameter transform: The transform that constructs the new expected value.
-    */
-    @warn_unused_result public func mapExpected(transform: String -> String) -> Parser {
-        return recover { error in
-            guard case let .UnableToMatch(expected, actual) = error else { throw error }
-            throw ParseError.UnableToMatch(expected: transform(expected), actual: actual)
+extension ParseError: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self.reason {
+        case .UnableToMatch(let failures):
+            return "ParseError(failures: \(failures))"
+        case .Failure(let message):
+            return "Failure(\(message))"
         }
     }
-    
+}
+
+extension Parser {
     /**
         Constructs a `Parser` that, on `UnableToMatch` failure, replaces the expected value with the provided one.
      
         - Parameter value: The new expected value.
      */
-    @warn_unused_result public func expect(value: String) -> Parser {
-        return mapExpected{ _ in value }
+    @warn_unused_result public func expect(name: String) -> Parser {
+        return Parser { input in
+            do {
+                return try self.run(input)
+            } catch _ as ParseError<Token> {
+                throw ParseMessage<Token>.UnableToMatch([.NamedParser(name)])
+            }
+        }
     }
 }

@@ -13,11 +13,11 @@ extension Parser {
      
         - Parameter recovery: A function that, given the error, will return a new parser to use.
     */
-    @warn_unused_result public func recover(recovery: ParseError throws -> Parser<Token, Result>) -> Parser {
+    @warn_unused_result public func recover(recovery: ParseError<Token> throws -> Parser<Token, Result>) -> Parser {
         return Parser { input in
             do {
                 return try self.run(input)
-            } catch let error as ParseError {
+            } catch let error as ParseError<Token> {
                 return try recovery(error).run(input)
             }
         }

@@ -8,32 +8,32 @@
 
 extension Parser {
     /**
-     Returns a `Parser` that fails with the given `error` on successful parse.
+        Returns a `Parser` that fails with the given `error` on successful parse.
      
-     - Parameter error: The error that will be thrown on successful parse.
-     */
-    @warn_unused_result public func raise(error: ParseError) -> Parser {
-        return peek { _ in
-            throw error
-        }
+        - Parameter error: The error that will be thrown on successful parse.
+    */
+    @warn_unused_result public func raise(reason: ParseMessage<Token>) -> Parser {
+        return peek { _ in throw reason }
     }
     
     /**
-     Returns a `Parser` that fails regardless of successful parse.
-     */
-    @warn_unused_result public func fail() -> Parser {
-        return raise(ParseError.Failure("fail"))
+        Returns a `Parser` that fails regardless of successful parse.
+    
+        - Parameter message: The message to fail with.
+    */
+    @warn_unused_result public func fail(message: String = "fail") -> Parser {
+        return raise(ParseMessage.Failure(message))
     }
     
     /**
-     Returns a `Parser` that verifies that its result passes the condition before returning
-     its result. If the result fails the condition, throws an error.
+        Returns a `Parser` that verifies that its result passes the condition before returning
+        its result. If the result fails the condition, throws an error.
      
-     - Parameter condition: The condition used to test the result.
+        - Parameter condition: The condition used to test the result.
      */
     @warn_unused_result public func require(condition: Result -> Bool) -> Parser {
         return peek { result in
-            if !condition(result) { throw ParseError.UnableToMatch(expected: "unknown", actual: "\(result)") }
+            guard condition(result) else { throw ParseMessage<Token>.Failure("require") }
         }
     }
 }

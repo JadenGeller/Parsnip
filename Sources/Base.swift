@@ -29,7 +29,8 @@
 */
 @warn_unused_result public func any<Token>() -> Parser<Token, Token> {
     return Parser { input in
-        return try input.read()
+        guard let value = input.next() else { throw ParseMessage<Token>.UnableToMatch([.NamedParser("any")]) }
+        return value
     }
 }
 
@@ -39,12 +40,8 @@
 */
 @warn_unused_result public func end<Token>() -> Parser<Token, ()> {
     return Parser { input in
-        do {
-            try input.read()
-            throw ParseError.Failure("end")
-        } catch let error as ParseError {
-            guard case .EndOfStream = error else { throw error }
-        }
+        guard let _ = input.next() else { return }
+        throw ParseMessage<Token>.UnableToMatch([.NamedParser("end")])
     }
 }
 
@@ -74,8 +71,8 @@
  
     - Parameter interval: The interval that the input is tested against.
  */
-@warn_unused_result public func within<I: IntervalType>(interval: I) -> Parser<I.Bound, I.Bound> {
-    return satisfy(interval.contains).expect("within(\(interval))")
+@warn_unused_result public func between<I: IntervalType>(interval: I) -> Parser<I.Bound, I.Bound> {
+    return satisfy(interval.contains).expect("between(\(interval))")
 }
 
 /**
@@ -84,8 +81,8 @@
  
     - Parameter sequence: The sequence that the input is tested against.
  */
-@warn_unused_result public func contains<S: SequenceType where S.Generator.Element: Equatable>(sequence: S) -> Parser<S.Generator.Element, S.Generator.Element> {
-    return satisfy(sequence.contains).expect("contains(\(sequence))")
+@warn_unused_result public func within<S: SequenceType where S.Generator.Element: Equatable>(sequence: S) -> Parser<S.Generator.Element, S.Generator.Element> {
+    return satisfy(sequence.contains).expect("within(\(sequence))")
 }
 
 /**
@@ -94,7 +91,7 @@
  
     - Parameter tokens: The list that the input is tested against.
 */
-@warn_unused_result public func contains<Token: Equatable>(tokens: Token...) -> Parser<Token, Token> {
-    return contains(tokens)
+@warn_unused_result public func within<Token: Equatable>(tokens: Token...) -> Parser<Token, Token> {
+    return within(tokens)
 }
 

@@ -16,7 +16,14 @@ public struct Parser<Token, Result> {
     
     /// Construct a `Parser` that will run `implementation`.
     public init(_ implementation: Implementation) {
-        self.implementation = implementation
+        self.implementation = { input in
+            do {
+                return try implementation(input)
+            } catch let message as ParseMessage<Token> {
+                // TODO: Should throw previous as error.
+                throw ParseError(index: input.index, actual: input.base.peek(), reason: message)
+            }
+        }
     }
     
     /**
